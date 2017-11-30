@@ -1,0 +1,9 @@
+
+
+- include: firewalld.yaml
+- include: host.yaml
+- include: setup-pipelining.yaml
+- include: system-repo.yaml
+- include: sync-time.yaml
+- include: swapoff.yaml
+- include: selinux.yaml

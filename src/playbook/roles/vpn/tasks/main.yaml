@@ -1,0 +1,36 @@
+
+- name: Unarchive vpn file to /tmp
+  unarchive: 
+    src: openconnect.tar.gz
+    dest: /tmp
+  tags:
+    - openconnect
+    - vpn
+
+- name: Install openconnect vpn
+  yum: 
+      name="/tmp/openconnect/{{ item }}"
+      state=present
+      update_cache=yes
+      allow_downgrade=yes
+  with_items:
+    - gnutls-3.3.26-9.el7.x86_64.rpm
+    - libmodman-2.0.1-8.el7.x86_64.rpm
+    - libproxy-0.4.11-10.el7.x86_64.rpm
+    - lz4-1.7.3-1.el7.x86_64.rpm
+    - nettle-2.7.1-8.el7.x86_64.rpm
+    - openconnect-7.06-1.el7.x86_64.rpm
+    - pcsc-lite-libs-1.8.8-6.el7.x86_64.rpm
+    - stoken-libs-0.91-1.el7.x86_64.rpm
+    - trousers-0.3.14-2.el7.x86_64.rpm
+    - vpnc-script-0.5.3-22.svn457.el7.noarch.rpm
+  tags:
+    - openconnect
+    - vpn
+
+
+- name: remove the vpn file
+  file: path=/tmp/openconnect state=absent
+  tags:
+    - openconnect
+    - vpn

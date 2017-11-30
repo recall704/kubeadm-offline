@@ -1,0 +1,22 @@
+
+
+
+- name: Create /etc/kubernetes directory
+  file: path=/etc/kubernetes state=directory mode=0755
+
+- name: Config kubelet env
+  template: 
+    src: kubelet.env.j2
+    dest: /etc/kubernetes/kubelet.env
+    mode: 0644
+
+
+- name: Config kubelet service
+  template: 
+    src: kubelet.service.j2
+    dest: /etc/systemd/system/kubelet.service
+    mode: 0644
+
+- name: Restart kubelet service
+  service: name=kubelet state=restarted enabled=yes daemon-reload=yes
+

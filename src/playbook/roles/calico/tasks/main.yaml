@@ -1,0 +1,9 @@
+- name: Create /etc/kubernetes/addons directory
+  file: path=/etc/kubernetes/addons state=directory mode=0755
+
+- name: Config calico 
+  template: 
+    src: calico.yaml.j2
+    dest: /etc/kubernetes/addons/calico.yaml
+    mode: 0644
+

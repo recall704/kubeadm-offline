@@ -1,0 +1,31 @@
+
+
+- name: Unarchive k8s images
+  unarchive: 
+    src: k8s-images.tar.gz
+    dest: /tmp
+    mode: 0755
+  tags:
+    - images
+    - k8s-images
+
+
+- name: Load k8s images
+  raw: docker load -i /tmp/k8s-images/{{ item }}
+  with_items:
+    - calico-cni.tar
+    - calico-node.tar
+    - dns-dnsmasq-nanny.tar
+    - dns-kube-dns.tar
+    - dns-sidecar.tar
+    - gcr-etcd.tar
+    - kube-apiserver.tar
+    - kube-controller-manager.tar
+    - kube-proxy.tar
+    - kube-scheduler.tar
+    - pause.tar
+    - quay-etcd.tar
+    - quay-kube-controller.tar
+  tags:
+    - images
+    - k8s-images

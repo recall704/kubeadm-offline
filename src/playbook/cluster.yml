@@ -1,0 +1,52 @@
+
+
+
+# 1. 关闭防火墙
+# 2. selinux
+# 3. ntp 时间同步
+# 4. system repo
+# 5. swapoff
+- name: node init
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  hosts: all
+  gather_facts: false
+  roles:
+    - { role: node-init, tags: ["node-init"]}
+
+
+- name: preinstall
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  hosts: all
+  gather_facts: false
+  roles:
+    # token and sysctl for k8s
+    - { role: preinstall/others, tags: ["others"]}
+    - { role: preinstall/docker, tags: ["docker"]}
+    - { role: preinstall/k8s-images, tags: ["k8s-images"]}
+    - { role: preinstall/kube-files, tags: ["kube-files"]}
+  tags:
+    - preinstall
+
+
+- name: vpn or proxy
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  hosts: all
+  gather_facts: false
+  roles:
+    - { role: vpn, tags: ["vpn"]}
+
+
+- name: node
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  hosts: k8s-cluster
+  gather_facts: false
+  roles:
+    - { role: node, tags: ["node"]}
+
+
+- name: calico
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  hosts: master
+  gather_facts: false
+  roles:
+    - { role: calico, tags: ["calico"]}

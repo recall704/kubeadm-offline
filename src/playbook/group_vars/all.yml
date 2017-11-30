@@ -1,0 +1,27 @@
+ntp_server: "cn.ntp.org.cn"
+
+
+cluster_name: kube-cluster
+
+
+# Network CIDR: 10.254.0.0/16
+network_cidr: 10.254.0.0/16
+
+# Cluster Service IP range
+cluster_ip_range: 10.0.0.1/24
+cluster_dns: "{{ cluster_ip_range | regex_replace('[^.]*$', '2') }}"
+cluster_domain: cluster.local
+kubernetes_service_ip: "{{ cluster_ip_range | regex_replace('[^.]*$', '1') }}"
+
+
+
+
+wait_for_timeout: 600
+
+
+bootstrap_token: "13d4326e0893ec4a86825036031fe742"
+
+
+kube_addon_dir: "/etc/kubernetes/addons"
+
+CALICO_IPV4POOL_CIDR: "192.168.0.0/16"

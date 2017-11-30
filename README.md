@@ -4,14 +4,17 @@
 
 ## 准备机器
 1. 我的三台机器 ip 是 192.168.88.201 192.168.88.202 192.168.88.203
-   如果你的机器不是，你需要修改 cluster/hosts 文件中对应的值
+   如果你的机器不是，你需要修改 src/cluster/hosts 文件中对应的值
 2. 我的执行 ansible 的机器已经拷贝好了  ssh-key 到三台机器
 3. 目前只支持一个 master， 多个 worker 
 4. 系统仅支持 centos 7，我本地测试的是 centos 7.2 mini
 
 ## 执行 ansible 脚本
 
-`ansible-playbook -i cluster/hosts playbook/cluster.yml -v`
+```bash
+cd src
+ansible-playbook -i cluster/hosts playbook/cluster.yml -v
+```
 
 ## master
 
